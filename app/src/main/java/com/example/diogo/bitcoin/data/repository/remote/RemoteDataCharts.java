@@ -16,8 +16,6 @@ import retrofit2.Response;
 
 public class RemoteDataCharts implements IRemoteDataCharts {
 
-    private static final String LOG_TAG = RemoteDataCharts.class.getSimpleName();
-
     private static RemoteDataCharts INSTANCE;
     private APIService service;
 
@@ -37,21 +35,20 @@ public class RemoteDataCharts implements IRemoteDataCharts {
         Call<ChartsResponse> articleResponseCall = service.getCharts();
         articleResponseCall.enqueue(new Callback<ChartsResponse>() {
             @Override
-            public void onResponse(final Call<ChartsResponse> call, final Response<ChartsResponse> response) {
-                if ("ok".equals(response.body().getStatus())){
-                    if (!response.body().getValues().isEmpty()) {
-                        callback.onDataLoaded(response.body().getValues());
-                    } else {
-                        Log.e(LOG_TAG, "Oops, something went wrong!");
+            public void onResponse(@NonNull final Call<ChartsResponse> call, @NonNull final Response<ChartsResponse> response) {
+                if(response != null) {
+                    if (response.isSuccessful()){
+                        if(response.body() != null) {
+                            if (response.body().getValues() != null && !response.body().getValues().isEmpty()) {
+                                callback.onDataLoaded(response.body().getValues());
+                            }
+                        }
                     }
-                } else {
-                    Log.e(LOG_TAG, "Oops, something went wrong!");
                 }
             }
 
             @Override
             public void onFailure(Call<ChartsResponse> call, Throwable t) {
-                Log.e(LOG_TAG, "Error:" + t.getMessage());
             }
         });
     }
