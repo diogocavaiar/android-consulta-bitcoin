@@ -66,7 +66,7 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     private void loadChartsFromRepository(final boolean isNetworkAvailable) {
-        view.setRefreshing(true);
+        view.showProgress();
 
         repository.getCharts(new IDataCharts.LoadDataCallback<Charts>() {
 
@@ -82,7 +82,7 @@ public class MainPresenterImpl implements MainPresenter {
 
                 view.showCharts(yVals);
                 view.setUpChart();
-                view.setRefreshing(false);
+                view.hideProgress();
             }
 
             @Override

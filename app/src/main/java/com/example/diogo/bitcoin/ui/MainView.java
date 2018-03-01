@@ -20,7 +20,9 @@ public interface MainView {
 
     void setUpChart();
 
-    void setRefreshing(boolean refreshing);
+    void showProgress();
+
+    void hideProgress();
 
     boolean isNetworkAvailable();
 

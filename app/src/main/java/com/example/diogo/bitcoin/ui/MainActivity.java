@@ -6,12 +6,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.diogo.bitcoin.App;
 import com.example.diogo.bitcoin.R;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainView, OnChart
 
     private LineChart mChart;
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
 
     private ChartAdapter mAdapter;
     private MainPresenter presenter;
@@ -57,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MainView, OnChart
         mChart.setDrawGridBackground(false);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void initRecyclerView() {
@@ -133,8 +138,13 @@ public class MainActivity extends AppCompatActivity implements MainView, OnChart
     }
 
     @Override
-    public void setRefreshing(boolean refreshing) {
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -151,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements MainView, OnChart
 
     @Override
     public void showNoChartData() {
-
+        Toast.makeText(this, this.getResources().getResourceName(R.string.nothing_to_show), Toast.LENGTH_SHORT).show();
     }
 
     @Override
