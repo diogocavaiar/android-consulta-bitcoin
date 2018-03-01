@@ -3,6 +3,7 @@ package com.example.diogo.bitcoin.data.repository.remote;
 import android.support.annotation.NonNull;
 
 import com.example.diogo.bitcoin.data.model.Charts;
+import com.example.diogo.bitcoin.data.model.StatsResponse;
 import com.example.diogo.bitcoin.data.repository.IDataCharts;
 
 /**
@@ -10,5 +11,8 @@ import com.example.diogo.bitcoin.data.repository.IDataCharts;
  */
 
 public interface IRemoteDataCharts extends IDataCharts {
+
     void getCharts(@NonNull LoadDataCallback<Charts> callback);
+
+    void getStats(@NonNull LoadDataCallback<StatsResponse> callback);
 }

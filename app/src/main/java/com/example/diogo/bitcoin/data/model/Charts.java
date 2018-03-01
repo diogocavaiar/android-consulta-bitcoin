@@ -11,20 +11,20 @@ import java.util.List;
 public class Charts {
 
     @SerializedName("x")
-    private double x;
+    private long x;
     @SerializedName("y")
-    private double y;
+    private float y;
 
-    public Charts(final double x, final double y) {
+    public Charts(final long x, final float y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public long getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 }

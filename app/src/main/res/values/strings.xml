@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Bitcoin</string>
+    <string name="nothing_to_show">Nothing to Show</string>
 </resources>

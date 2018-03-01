@@ -3,6 +3,7 @@ package com.example.diogo.bitcoin.data.repository;
 import android.support.annotation.NonNull;
 
 import com.example.diogo.bitcoin.data.model.Charts;
+import com.example.diogo.bitcoin.data.model.StatsResponse;
 import com.example.diogo.bitcoin.data.repository.local.LocalDataCharts;
 import com.example.diogo.bitcoin.data.repository.remote.RemoteDataCharts;
 
@@ -53,6 +54,21 @@ public class Repository implements RepositoryDataCharts {
     @Override
     public void deleteAllCharts() {
         localDataSource.deleteAll();
+    }
+
+    @Override
+    public void getStats(final IDataCharts.LoadDataCallback<StatsResponse> callback, boolean isNetworkAvailable) {
+        remoteDataSource.getStats(new IDataCharts.LoadDataCallback<StatsResponse>() {
+            @Override
+            public void onDataLoaded(List<StatsResponse> list) {
+                callback.onDataLoaded(new ArrayList<>(list));
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                callback.onDataNotAvailable();
+            }
+        });
     }
 
     private void getChartsFromRemoteDataSource(final IDataCharts.LoadDataCallback<Charts> callback) {

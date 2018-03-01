@@ -5,6 +5,11 @@ import android.util.Log;
 
 import com.example.diogo.bitcoin.data.model.Charts;
 import com.example.diogo.bitcoin.data.model.ChartsResponse;
+import com.example.diogo.bitcoin.data.model.StatsResponse;
+import com.example.diogo.bitcoin.data.repository.IDataCharts;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,8 +37,8 @@ public class RemoteDataCharts implements IRemoteDataCharts {
 
     @Override
     public void getCharts(@NonNull final LoadDataCallback<Charts> callback) {
-        Call<ChartsResponse> articleResponseCall = service.getCharts();
-        articleResponseCall.enqueue(new Callback<ChartsResponse>() {
+        Call<ChartsResponse> chartsResponseCall = service.getCharts("2weeks");
+        chartsResponseCall.enqueue(new Callback<ChartsResponse>() {
             @Override
             public void onResponse(@NonNull final Call<ChartsResponse> call, @NonNull final Response<ChartsResponse> response) {
                 if(response != null) {
@@ -49,6 +54,32 @@ public class RemoteDataCharts implements IRemoteDataCharts {
 
             @Override
             public void onFailure(Call<ChartsResponse> call, Throwable t) {
+            }
+        });
+    }
+
+    @Override
+    public void getStats(@NonNull final LoadDataCallback<StatsResponse> callback) {
+        Call<StatsResponse> statsResponseCall = service.getStats();
+        statsResponseCall.enqueue(new Callback<StatsResponse>() {
+            @Override
+            public void onResponse(@NonNull final Call<StatsResponse> call, @NonNull final Response<StatsResponse> response) {
+                if(response != null) {
+                    if (response.isSuccessful()){
+                        if(response.body() != null) {
+                            if (response.body() != null) {
+                                final StatsResponse stats = response.body();
+                                final List<StatsResponse> list = new ArrayList<>();
+                                list.add(stats);
+                                callback.onDataLoaded(list);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatsResponse> call, Throwable t) {
             }
         });
     }

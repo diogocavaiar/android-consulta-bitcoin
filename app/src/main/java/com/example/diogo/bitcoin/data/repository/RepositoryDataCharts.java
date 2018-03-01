@@ -3,6 +3,7 @@ package com.example.diogo.bitcoin.data.repository;
 import android.support.annotation.NonNull;
 
 import com.example.diogo.bitcoin.data.model.Charts;
+import com.example.diogo.bitcoin.data.model.StatsResponse;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface RepositoryDataCharts {
     void saveCharts(@NonNull List<Charts> value);
 
     void deleteAllCharts();
+
+    void getStats(@NonNull IDataCharts.LoadDataCallback<StatsResponse> callback, boolean isNetworkAvailable);
 
 }

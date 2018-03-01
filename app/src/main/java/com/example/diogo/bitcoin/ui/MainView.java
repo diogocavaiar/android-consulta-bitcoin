@@ -3,6 +3,8 @@ package com.example.diogo.bitcoin.ui;
 import android.support.annotation.NonNull;
 
 import com.example.diogo.bitcoin.data.model.Charts;
+import com.example.diogo.bitcoin.data.model.StatsResponse;
+import com.github.mikephil.charting.data.Entry;
 
 import java.util.List;
 
@@ -12,7 +14,11 @@ import java.util.List;
 
 public interface MainView {
 
-    void showSources(@NonNull List<Charts> list);
+    void showCharts(@NonNull List<Entry> list);
+
+    void showInfoCard(@NonNull List<StatsResponse> list);
+
+    void setUpChart();
 
     void setRefreshing(boolean refreshing);
 

@@ -37,7 +37,7 @@ public class LocalDataCharts implements ILocalDataRepository<Charts> {
 
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                modelList.add(new Charts(cursor.getDouble(cursor.getColumnIndex(ChartContract.COLUMN_X)), cursor.getDouble(cursor.getColumnIndex(ChartContract.COLUMN_Y))));
+                modelList.add(new Charts(cursor.getLong(cursor.getColumnIndex(ChartContract.COLUMN_X)), cursor.getFloat(cursor.getColumnIndex(ChartContract.COLUMN_Y))));
             }
             cursor.close();
         }
@@ -50,8 +50,9 @@ public class LocalDataCharts implements ILocalDataRepository<Charts> {
         for(final Charts chart : charts) {
             cv.put(ChartContract.COLUMN_X, chart.getX());
             cv.put(ChartContract.COLUMN_Y, chart.getY());
+            DatabaseProvider.getReadableDatabase().insert(ChartContract.TABLE_NAME, null, cv);
         }
-        return DatabaseProvider.getReadableDatabase().insert(ChartContract.TABLE_NAME, null, cv);
+        return 1L;
     }
 
     @Override
